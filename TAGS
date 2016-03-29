@@ -1,0 +1,169 @@
+
+./Setup.hs,15
+main main1,2
+
+./src/Utils.hs,134
+module Utils Utils0,1
+showWord64 showWord644,5
+showWord64 showWord645,6
+put8 put87,8
+put8 put88,9
+ps ps13,14
+ps ps14,15
+
+./src/Lib.hs,65
+module LibLib0,1
+someFunc someFunc4,5
+someFunc someFunc5,6
+
+./src/Evaluation.hs,212
+module Evaluation Evaluation0,1
+sumOneMagic sumOneMagic14,15
+sumOneMagic sumOneMagic15,16
+sumAllMagics sumAllMagics19,20
+sumAllMagics sumAllMagics20,21
+evaluate evaluate22,23
+evaluate evaluate23,24
+
+./src/Move/Apply.hs,87
+module Move.Apply Move.Apply0,1
+applyMove applyMove9,10
+applyMove applyMove10,11
+
+./src/Move/Generation.hs,239
+module Move.Generation Move.Generation0,1
+moveWord moveWord17,18
+moveWord moveWord18,19
+generateMoves generateMoves21,22
+generateMoves generateMoves22,23
+toMove toMove24,25
+toMove toMove25,26
+unsafeToMove unsafeToMove31,32
+
+./src/Move/Types.hs,110
+module Move.Types Move.Types0,1
+newtype Move Move5,6
+newtype Move = Move Move5,6
+instance instance7,8
+
+./src/Magic.hs,721
+module Magic Magic1,2
+occupancyPerms occupancyPerms28,29
+occupancyPerms occupancyPerms29,30
+testMagic testMagic41,42
+testMagic testMagic42,43
+genOne genOne51,52
+genOne genOne52,53
+data Magics Magics68,69
+data Magics = Magics Magics68,69
+  masks masks69,70
+  magics magics70,71
+  rows rows71,72
+  shifts shifts72,73
+data AllMagics AllMagics78,79
+data AllMagics = AllMagics AllMagics78,79
+  vert vert79,80
+  horz horz80,81
+  diag diag81,82
+  antiDiag antiDiag82,83
+genMagics genMagics88,89
+genMagics genMagics89,90
+jsonPath jsonPath93,94
+jsonPath jsonPath94,95
+magicMain magicMain96,97
+magicMain magicMain97,98
+loadMagics loadMagics104,105
+loadMagics loadMagics105,106
+
+./src/Board.hs,259
+type Turn Turn11,12
+pattern pattern13,14
+data Board Board16,17
+data Board = Board Board16,17
+  turnB turnB17,18
+  bitBoardB bitBoardB18,19
+  allMagics allMagics19,20
+  pv pv20,21
+  transpoistions transpoistions21,22
+instance instance24,25
+
+./src/BitBoard.hs,326
+data BitBoard BitBoard10,11
+data BitBoard = BitBoard BitBoard10,11
+  black black11,12
+  red red12,13
+  both both13,14
+instance instance15,16
+startingBitBoard startingBitBoard18,19
+splitEveryN splitEveryN20,21
+splitEveryN splitEveryN21,22
+bitBoardToDoc bitBoardToDoc26,27
+bitBoardToDoc bitBoardToDoc27,28
+
+./src/Masks.hs,584
+module Masks Masks0,1
+makeLine makeLine12,13
+makeLine makeLine13,14
+uncurryMakeLine uncurryMakeLine17,18
+uncurryMakeLine uncurryMakeLine18,19
+vertSet vertSet20,21
+vertSet vertSet21,22
+vertMasks vertMasks23,24
+vertMasks vertMasks24,25
+horzSet horzSet26,27
+horzSet horzSet27,28
+horzMasks horzMasks29,30
+horzMasks horzMasks30,31
+diagSet diagSet32,33
+diagSet diagSet33,34
+diagMasks diagMasks35,36
+diagMasks diagMasks36,37
+antiDiagSet antiDiagSet38,39
+antiDiagSet antiDiagSet39,40
+antiDiagMasks antiDiagMasks41,42
+antiDiagMasks antiDiagMasks42,43
+
+./src/Terminal.hs,193
+module Terminal Terminal0,1
+testDir testDir15,16
+testDir testDir16,17
+isWin isWin20,21
+isWin isWin21,22
+isWin' isWin'24,25
+isTerminal isTerminal26,27
+isTerminal isTerminal27,28
+
+./src/Serialize.hs,222
+module Serialize Serialize0,1
+expandBitBoard expandBitBoard13,14
+expandBitBoard expandBitBoard14,15
+bitBoards bitBoards21,22
+bitBoards bitBoards22,23
+indexedOnly indexedOnly24,25
+indexedOnly indexedOnly25,26
+
+./src/UI.hs,18
+module UI UI0,1
+
+./src/Search.hs,354
+module Search Search0,1
+data Evaluation Evaluation16,17
+data Evaluation = Evaluation Evaluation16,17
+  bestScoreE bestScoreE17,18
+  bestMoveE bestMoveE18,19
+negamax negamax21,22
+negamax negamax22,23
+alpha_beta alpha_beta34,35
+alpha_beta alpha_beta35,36
+alphaBeta alphaBeta49,50
+alphaBeta alphaBeta50,51
+searchMain searchMain76,77
+
+./app/Main.hs,52
+module Main Main0,1
+main main4,5
+main main5,6
+
+./test/Spec.hs,30
+main main0,1
+main main1,2
