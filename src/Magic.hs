@@ -62,7 +62,7 @@ genOne occAtt size = getStdGen >>= evalRandT (randMagics 0)
               when (i `mod` 1000 == 0 && i /= 0) $ lift $ putStrLn $ show i ++ " possible bitmaps attempted"
               randMagics (i+1)
         toScore (Just score)
-          | score < 4 = score ^ 3
+          | score < 4 = score ^ 4
           | otherwise = 100000
         toScore Nothing = 0
 

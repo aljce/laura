@@ -14,7 +14,7 @@ data BitBoard = BitBoard {
   both  :: {-# UNPACK #-} !Word64 }
 
 instance Show BitBoard where
-  show  = show . vsep . bitBoardToDoc
+  show  = show . vsep . fmap (hcat . punctuate (char ' ')) . bitBoardToDoc
 
 startingBitBoard = BitBoard 0 0 0
 
@@ -24,10 +24,10 @@ splitEveryN delta = unfold 0
           | n < delta * delta = take delta xs : unfold (n + delta) (drop delta xs)
           | otherwise         = []
 
-bitBoardToDoc :: BitBoard -> [Doc]
+bitBoardToDoc :: BitBoard -> [[Doc]]
 bitBoardToDoc (BitBoard b r _) = docs
-  where docs = (fmap (string . tail) . drop 2 . splitEveryN 8) bitBoardString
+  where docs = (fmap (fmap char . tail) . drop 2 . splitEveryN 8) bitBoardString
         bitBoardString  = (reverse . elems . unions . fmap toIntMap) bitBoards
         toIntMap (ps,c) = (fromDistinctAscList . fmap (,c) . filter (testBit ps)) [0..63]
-        bitBoards       = [(b,'X'),(r,'O'),(-1,'.')]
+        bitBoards       = [(b,'B'),(r,'R'),(-1,'.')]
 

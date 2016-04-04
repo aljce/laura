@@ -4,6 +4,7 @@ import Data.Word
 
 import Data.Vector
 import Data.HashMap.Strict
+import Data.Traversable
 
 import BitBoard
 import Move.Types
@@ -17,10 +18,10 @@ pattern Black = True
 data Board = Board {
   turnB     :: Turn,
   bitBoardB :: BitBoard,
-  allMagics :: AllMagics,
-  pv        :: Vector Move,
-  transpoistions :: HashMap Word64 ()
+  allMagics :: AllMagics
 }
+
+startingBoard = Board Red startingBitBoard <$> loadMagics
 
 instance Show Board where
   show = show . bitBoardB

@@ -1,6 +1,6 @@
 module Main where
 
-import Search
+import UI
 
 main :: IO ()
-main = searchMain
+main = mainUI

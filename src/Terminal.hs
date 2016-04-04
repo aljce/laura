@@ -19,10 +19,10 @@ testDir (Magics masks magics rows shfts) w = any (90000 <=) (izipWith3 getNumInR
           rows V.! i ! index
 
 isWin :: Turn -> BitBoard -> AllMagics -> Bool
-isWin Red   (BitBoard _ r _) (AllMagics ver hor dia antiDia) = testDir ver r || testDir hor r || testDir dia r || testDir antiDia r
-isWin Black (BitBoard b _ _) (AllMagics ver hor dia antiDia) = testDir ver b || testDir hor b || testDir dia b || testDir antiDia b
+isWin Black (BitBoard _ r _) (AllMagics ver hor dia antiDia) = testDir ver r || testDir hor r || testDir dia r || testDir antiDia r
+isWin Red   (BitBoard b _ _) (AllMagics ver hor dia antiDia) = testDir ver b || testDir hor b || testDir dia b || testDir antiDia b
 
 isWin' _ (BitBoard b r _) (AllMagics ver hor dia antiDia) = testDir ver r || testDir hor r || testDir dia r || testDir antiDia r || testDir ver b || testDir hor b || testDir dia b || testDir antiDia b
 
 isTerminal :: Board -> Bool
-isTerminal (Board t b@(BitBoard _ _ bth) mags _ _) = moveWord bth == 0 || isWin t b mags
+isTerminal (Board t b@(BitBoard _ _ bth) mags) = moveWord bth == 0 || isWin' t b mags
