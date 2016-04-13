@@ -23,7 +23,7 @@ moveWord w = complement (w .|. top2Rows) .&. ((w `shiftL` 8) .|. 127)
   where top2Rows = 9187061764859101184
 
 generateMoves :: Board -> V.Vector Move
-generateMoves (Board _ (BitBoard _ _ bth) _) = expandBitBoard Move $ moveWord bth
+generateMoves b@(Board _ (BitBoard _ _ bth) _) = expandBitBoard Move $ moveWord bth
 
 toMove :: BitBoard -> Int -> Maybe Move
 toMove (BitBoard _ _ bth) m

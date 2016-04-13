@@ -3,8 +3,6 @@ module UI where
 import System.Console.Haskeline
 import Control.Monad.Trans
 
-import Control.Concurrent
-
 import Safe
 
 import Magic
@@ -13,8 +11,8 @@ import BitBoard
 import Move.Types
 import Move.Generation
 import Move.Apply
-import Evaluation
 import Search
+import Terminal
 
 getTurn :: InputT IO Turn
 getTurn = do
@@ -64,8 +62,8 @@ getDelay = do
         outputStrLn "Search time must be larger than 0"
         getDelay
   where defaulting = do
-          outputStrLn "Defaulting to 10 seconds"
-          return 10000
+          outputStrLn "Defaulting to 3 seconds"
+          return (3 * 1000000)
 
 getMove :: BitBoard -> InputT IO (Maybe Move)
 getMove bb = do
@@ -92,39 +90,62 @@ getMove bb = do
 terminate :: InputT IO ()
 terminate = outputStrLn "Thanks for playing!"
 
-redLoop :: Int -> Int -> Board -> Evaluation -> InputT IO ()
-redLoop maxDepth delay board eval = do
+gameLoop :: Int -> Int -> Board -> Evaluation -> InputT IO ()
+gameLoop maxDepth delay board eval = do
   move <- getMove (bitBoardB board)
   case move of
     Nothing -> terminate
     Just checkedMove -> do
       let playerB = applyMove checkedMove board
       outputStrLn $ show playerB
-      newEval <- liftIO $ iterativeDeepening maxDepth delay playerB eval
-      case newEval of
-        Just checkedEval -> case bestMoveE checkedEval of
-          (_:aiB:_) -> do
-            outputStrLn ""
-            outputStrLn $ show aiB
-            outputStrLn $ "Score: " ++ show (bestScoreE checkedEval)
-            outputStrLn $ "Depth: " ++ show (length (bestMoveE checkedEval) - 1)
-            redLoop maxDepth delay aiB checkedEval
-          _ -> do
-            outputStrLn "Game Over!"
-            terminate
-        Nothing -> outputStrLn "AI unable to calculate, AI forfits."
+      case isTerminal playerB of
+        True -> do
+          outputStrLn "Game Over!"
+          outputStrLn "Red wins!"
+          terminate
+        False -> do
+          newEval <- liftIO $ iterativeDeepening maxDepth delay playerB eval
+          case newEval of
+            Just checkedEval -> case bestMovesE checkedEval of
+              (_:aiMove:_) -> do
+                let aiB = applyMove aiMove playerB
+                case isTerminal aiB of
+                  True  -> do
+                    outputStrLn "Game Over!"
+                    outputStrLn "Black wins!"
+                    terminate
+                  False -> do
+                    outputStrLn ""
+                    outputStrLn $ show aiB
+                    outputStrLn $ "Score: " ++ show (bestScoreE checkedEval)
+                    outputStrLn $ "Depth: " ++ show (length (bestMovesE checkedEval) - 1)
+                    gameLoop maxDepth delay aiB checkedEval
+              _ -> error "impossible"
+            Nothing -> outputStrLn "AI unable to calculate, AI forfits."
 
-blackLoop = undefined
-
-gameLoop :: InputT IO ()
-gameLoop = do
+mainInputT :: InputT IO ()
+mainInputT = do
   mags <- liftIO loadMagics
   turn <- getTurn
   maxDepth <- getMaxDepth
   delay    <- getDelay
   let board = Board turn startingBitBoard mags
   case turn of
-    Red   -> redLoop maxDepth delay board (Evaluation 0 [])
-    Black -> blackLoop maxDepth delay board
+    Red   -> gameLoop maxDepth delay board (Evaluation 0 [])
+    Black -> do
+      startEval <- liftIO $ iterativeDeepening maxDepth delay board (Evaluation 0 [])
+      case startEval of
+        Just checkedEval -> case bestMovesE checkedEval of
+          (_:aiMove:_) -> do
+            let aiB = applyMove aiMove board
+            outputStrLn $ show aiB
+            outputStrLn $ "Score: " ++ show (bestScoreE checkedEval)
+            outputStrLn $ "Depth: " ++ show (length (bestMovesE checkedEval) - 1)
+            gameLoop maxDepth delay aiB checkedEval
+          _ -> do
+            outputStrLn "Game Over!"
+            terminate
+        Nothing -> outputStrLn "AI unable to calculate, AI forfits."
 
-mainUI = runInputT defaultSettings gameLoop
+mainUI :: IO ()
+mainUI = runInputT defaultSettings mainInputT

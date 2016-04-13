@@ -2,6 +2,17 @@
 ./Setup.hs,15
 main main1,2
 
+./src/Trans.hs,269
+data Type Type2,3
+data Type = Exact Exact2,3
+data Type = Exact | LowerBound LowerBound2,3
+data Type = Exact | LowerBound | UpperBound UpperBound2,3
+data Trans Trans4,5
+data Trans = Trans Trans4,5
+  depthT depthT5,6
+  typeT typeT6,7
+  valueT valueT7,8
+
 ./src/Utils.hs,134
 module Utils Utils0,1
 showWord64 showWord644,5
@@ -30,20 +41,22 @@ module Move.Apply Move.Apply0,1
 applyMove applyMove9,10
 applyMove applyMove10,11
 
-./src/Move/Generation.hs,239
+./src/Move/Generation.hs,260
 module Move.Generation Move.Generation0,1
-moveWord moveWord17,18
-moveWord moveWord18,19
-generateMoves generateMoves21,22
-generateMoves generateMoves22,23
-toMove toMove24,25
-toMove toMove25,26
-unsafeToMove unsafeToMove31,32
+moveWord moveWord20,21
+moveWord moveWord21,22
+generateMoves generateMoves24,25
+generateMoves generateMoves25,26
+toMove toMove27,28
+toMove toMove28,29
+makeBoard makeBoard34,35
+makeBoard makeBoard35,36
 
-./src/Move/Types.hs,110
+./src/Move/Types.hs,151
 module Move.Types Move.Types0,1
 newtype Move Move5,6
 newtype Move = Move Move5,6
+newtype Move = Move { unMove unMove5,6
 instance instance7,8
 
 ./src/Magic.hs,721
@@ -75,7 +88,7 @@ magicMain magicMain97,98
 loadMagics loadMagics104,105
 loadMagics loadMagics105,106
 
-./src/Board.hs,259
+./src/Board.hs,275
 type Turn Turn11,12
 pattern pattern13,14
 data Board Board16,17
@@ -83,11 +96,11 @@ data Board = Board Board16,17
   turnB turnB17,18
   bitBoardB bitBoardB18,19
   allMagics allMagics19,20
-  pv pv20,21
-  transpoistions transpoistions21,22
-instance instance24,25
+instance instance22,23
+startingBoard startingBoard25,26
+startingBoard startingBoard26,27
 
-./src/BitBoard.hs,326
+./src/BitBoard.hs,400
 data BitBoard BitBoard10,11
 data BitBoard = BitBoard BitBoard10,11
   black black11,12
@@ -99,6 +112,8 @@ splitEveryN splitEveryN20,21
 splitEveryN splitEveryN21,22
 bitBoardToDoc bitBoardToDoc26,27
 bitBoardToDoc bitBoardToDoc27,28
+prettyBitBoard prettyBitBoard33,34
+prettyBitBoard prettyBitBoard34,35
 
 ./src/Masks.hs,584
 module Masks Masks0,1
@@ -142,28 +157,56 @@ bitBoards bitBoards22,23
 indexedOnly indexedOnly24,25
 indexedOnly indexedOnly25,26
 
-./src/UI.hs,18
+./src/UI.hs,434
 module UI UI0,1
+getTurn getTurn16,17
+getTurn getTurn17,18
+getMaxDepth getMaxDepth31,32
+getMaxDepth getMaxDepth32,33
+getDelay getDelay49,50
+getDelay getDelay50,51
+getMove getMove67,68
+getMove getMove68,69
+terminate terminate89,90
+terminate terminate90,91
+gameLoop gameLoop92,93
+gameLoop gameLoop93,94
+mainInputT mainInputT125,126
+mainInputT mainInputT126,127
+mainUI mainUI149,150
+mainUI mainUI150,151
 
-./src/Search.hs,354
+./src/Search.hs,730
 module Search Search0,1
-data Evaluation Evaluation16,17
-data Evaluation = Evaluation Evaluation16,17
-  bestScoreE bestScoreE17,18
-  bestMoveE bestMoveE18,19
-negamax negamax21,22
-negamax negamax22,23
-alpha_beta alpha_beta34,35
-alpha_beta alpha_beta35,36
-alphaBeta alphaBeta49,50
-alphaBeta alphaBeta50,51
-searchMain searchMain76,77
+data Evaluation Evaluation26,27
+data Evaluation = Evaluation Evaluation26,27
+  bestScoreE bestScoreE27,28
+  bestMovesE bestMovesE28,29
+instance instance30,31
+type TransTable TransTable49,50
+type TransTable s s49,50
+alphaBetaTT alphaBetaTT51,52
+alphaBetaTT alphaBetaTT52,53
+alphaBeta alphaBeta55,56
+alphaBeta alphaBeta56,57
+search search71,72
+iterativeDeepening iterativeDeepening73,74
+iterativeDeepening iterativeDeepening74,75
+timeLimited timeLimited79,80
+timeLimited timeLimited80,81
+forceIntoTVar forceIntoTVar88,89
+forceIntoTVar forceIntoTVar89,90
+forceCons forceCons92,93
+forceCons forceCons93,94
+modifyTVar2 modifyTVar296,97
+modifyTVar2 modifyTVar297,98
 
 ./app/Main.hs,52
 module Main Main0,1
 main main4,5
 main main5,6
 
-./test/Spec.hs,30
-main main0,1
-main main1,2
+./test/Spec.hs,54
+config config9,10
+main main13,14
+main main14,15

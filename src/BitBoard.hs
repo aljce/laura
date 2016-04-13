@@ -14,7 +14,7 @@ data BitBoard = BitBoard {
   both  :: {-# UNPACK #-} !Word64 }
 
 instance Show BitBoard where
-  show  = show . vsep . fmap (hcat . punctuate (char ' ')) . bitBoardToDoc
+  show  = show . prettyBitBoard
 
 startingBitBoard = BitBoard 0 0 0
 
@@ -30,4 +30,7 @@ bitBoardToDoc (BitBoard b r _) = docs
         bitBoardString  = (reverse . elems . unions . fmap toIntMap) bitBoards
         toIntMap (ps,c) = (fromDistinctAscList . fmap (,c) . filter (testBit ps)) [0..63]
         bitBoards       = [(b,'B'),(r,'R'),(-1,'.')]
+
+prettyBitBoard :: BitBoard -> Doc
+prettyBitBoard = vsep . fmap (hcat . punctuate (char ' ')) . bitBoardToDoc
 

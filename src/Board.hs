@@ -1,13 +1,12 @@
 module Board where
 
-import Data.Word
+import Prelude hiding ((<$>))
 
-import Data.Vector
-import Data.HashMap.Strict
-import Data.Traversable
+import Text.PrettyPrint.ANSI.Leijen
+
+import Data.Hashable
 
 import BitBoard
-import Move.Types
 import Magic
 
 type Turn = Bool
@@ -21,7 +20,13 @@ data Board = Board {
   allMagics :: AllMagics
 }
 
-startingBoard = Board Red startingBitBoard <$> loadMagics
+instance Hashable Board where
+  hashWithSalt s (Board _ (BitBoard b r _) _) = s `hashWithSalt` b `hashWithSalt` r
+
+startingBoard :: IO Board
+startingBoard = fmap (Board Red startingBitBoard) loadMagics
 
 instance Show Board where
-  show = show . bitBoardB
+  show (Board turn bb _)  = show $ string "Turn:" <+> turnToDoc turn <$> prettyBitBoard bb
+    where turnToDoc Red   = "Red"
+          turnToDoc Black = "Black"

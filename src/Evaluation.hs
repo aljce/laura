@@ -21,4 +21,5 @@ sumAllMagics :: AllMagics -> Word64 -> Int
 sumAllMagics (AllMagics ver hor dia antiDia) w = sumOneMagic ver w + sumOneMagic hor w + sumOneMagic dia w + sumOneMagic antiDia w
 
 evaluate :: Board -> Int
-evaluate (Board _ (BitBoard b r _) mags) = sumAllMagics mags r - sumAllMagics mags b
+evaluate (Board Red (BitBoard b r _) mags) = sumAllMagics mags r - sumAllMagics mags b
+evaluate (Board Black (BitBoard b r _) mags) = negate $ sumAllMagics mags r - sumAllMagics mags b

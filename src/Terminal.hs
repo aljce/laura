@@ -10,8 +10,8 @@ import qualified Data.Vector as V
 
 import BitBoard
 import Board
-import Move.Generation
 import Magic
+import Move.Generation
 
 testDir :: Magics -> Word64 -> Bool
 testDir (Magics masks magics rows shfts) w = any (90000 <=) (izipWith3 getNumInRow masks magics shfts)
@@ -26,3 +26,4 @@ isWin' _ (BitBoard b r _) (AllMagics ver hor dia antiDia) = testDir ver r || tes
 
 isTerminal :: Board -> Bool
 isTerminal (Board t b@(BitBoard _ _ bth) mags) = moveWord bth == 0 || isWin' t b mags
+

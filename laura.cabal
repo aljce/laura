@@ -18,11 +18,11 @@ library
   ghc-options:         -Wall
   exposed-modules:     Lib, BitBoard, Utils, Move.Types, Move.Generation, Magic,
                        Serialize, Masks, Terminal, Move.Apply, Evaluation, Search,
-                       Board, UI
+                       Board, UI, Trans
   build-depends:       base >= 4.7 && < 5, containers >= 0.5, ansi-wl-pprint,
                        vector >= 0.11, unordered-containers, MonadRandom, random,
                        mtl, aeson, bytestring >= 0.10, safe, haskeline >= 0.7,
-                       stm, deepseq >= 1.4
+                       stm, deepseq >= 1.4, hashable >= 1.2, hashtables
   default-extensions:  OverloadedStrings, LambdaCase, TupleSections,
                        GeneralizedNewtypeDeriving, BangPatterns, PatternSynonyms
   default-language:    Haskell2010
@@ -30,7 +30,7 @@ library
 executable laura
   hs-source-dirs:      app
   main-is:             Main.hs
-  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:       base
                      , laura
   default-language:    Haskell2010
@@ -39,7 +39,7 @@ test-suite laura-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Spec.hs
-  build-depends:       base
+  build-depends:       base, criterion 
                      , laura
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
